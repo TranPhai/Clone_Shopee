@@ -79,7 +79,7 @@
     position: relative;
     min-height: 28px;
 }
-#header__navbar-item-user{
+.header__navbar-item-user{
     display: flex;
 }
 .header__navbar-item-register{
