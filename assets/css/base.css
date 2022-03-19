@@ -71,7 +71,7 @@ html{
     bottom: 0;
     right: 0;
     left: 0;
-    display: flex;
+    display: none;
     animation: fakeIn linear .2s;
 }
 .modal__overlay{
