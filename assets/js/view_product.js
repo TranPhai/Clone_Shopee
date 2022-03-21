@@ -1,6 +1,12 @@
+import {isLogin} from './main.js'
 const home__product = document.getElementById('home__product-swap');
 const header_cart = document.getElementById('header__cart-list-item-id');
-const btnBuy = document.getElementById('home__product-buy-id')
+const header_cart_view = document.getElementsByClassName('header__cart');
+const total_price = document.getElementsByClassName('header__cart-total');
+const cart_payment= document.getElementsByClassName('header__cart-payment');
+
+
+
 
 const items = [
     {
@@ -107,16 +113,7 @@ const items = [
 ]
 
 
-
-
-
-
-
-
 // header_cart.innerHTML = addCar.join('');
-
-    
-
 
 const itemHTML = items.map((item,index) => {  
     return `
@@ -167,40 +164,93 @@ const itemHTML = items.map((item,index) => {
 home__product.innerHTML = itemHTML.join('');
 
 
-
-const addCart = function(id,name,img,price){
-    const cartList = {
-        id,
-        name,
-        img,
-        price
-    }
-    console.log(cartList)
-    // const items = arrCart.map(item => {
-    //     return `
-    //     <li class="header__cart-item">
-    //     <img src=${item.img} alt=""
-    //         class="header__cart-item-img">
-    //     <div class="header__cart-item-info">
-    //         <div class="header__cart-item-head">
-    //             <h5 class="header__cart-item-name"> ${item.name} </h5>
-
-    //             </h5>
-    //             <div class="header__cart-item-price-wrap">
-    //                 <span class="header__cart-item-price">${item.price}</span>
-    //                 <span class="header__cart-item-multiply">x</span>
-    //                 <span class="header__cart-item-quatity">1</span>
-    //             </div>
-    //         </div>
-    //         <div class="header__cart-item-body">
-    //             <span class="header__cart-item-description">Phân loại: Bạc</span>
-    //             <span class="header__cart-item-remove">Xóa</span>
-
-    //         </div>
-    //     </div>
-    // </li>
+window.onload = function() {
+    
+    const btnBuys = document.getElementsByClassName('home__product-buy')
+    const userName = localStorage.getItem('user_name')
+    const itemCartLocal = JSON.parse(localStorage.getItem(userName)) || [];
+    let productInCart = [...itemCartLocal]
+    function viewCart(){
+        if(isLogin ==true) {
+            const itemCart = productInCart.map(item => {
+                return `
+                    <li class="header__cart-item">
+                    <img src= ${item.image} alt=""
+                        class="header__cart-item-img">
+                    <div class="header__cart-item-info">
+                        <div class="header__cart-item-head">
+                            <h5 class="header__cart-item-name">${item.name}
         
-    //     `
-    // })
+                            </h5>
+                            <div class="header__cart-item-price-wrap">
+                                <span class="header__cart-item-price">${item.price_current}</span>
+                                <span class="header__cart-item-multiply">x</span>
+                                <span class="header__cart-item-quatity">1</span>
+                            </div>
+                        </div>
+                        <div class="header__cart-item-body">
+                            <span class="header__cart-item-description">Phân loại: Bạc</span>
+                            <span class="header__cart-item-remove">Xóa</span>
+        
+                        </div>
+                    </div>
+                </li>
+                `
+            })
+            header_cart.innerHTML = itemCart.join('')
+
+        }
+    }
+    function remove(){
+        const removeCart = document.getElementsByClassName('header__cart-item-remove');
+        for(let i = 0; i < removeCart.length; i++){              
+            removeCart[i].onclick = (event)=>{
+                event.target.parentElement.parentElement.parentElement.remove();
+                productInCart.splice(i, 1);
+                localStorage.setItem(localStorage.getItem('user_name'),JSON.stringify(productInCart));
+    
+            }
+        }
+    }
+
+    for(let i = 0; i < btnBuys.length; i++) {
+        btnBuys[i].onclick = () =>{
+            if(isLogin == true){
+                productInCart.push(items[i])
+                localStorage.setItem(localStorage.getItem('user_name'),JSON.stringify(productInCart));
+            }
+
+        }
+        viewCart()  
+    }
+
+    header_cart_view[0].onmousemove = () =>{   
+        if(isLogin == true){
+            viewCart() 
+            remove();
+            total_price[0].textContent = "Tổng tiền: " + sumTotal();
+        }
+       
+    }
+
+    function sumTotal(){
+        const totalPrice = productInCart.reduce((total,item)=>{
+            return total + item.price_current;
+        },0)
+        return totalPrice
+    }
+    cart_payment[0].onclick = () =>{
+        if(isLogin == true){
+            const a = sumTotal();
+            let text = `Bạn xác nhận thanh toán?\n Giá tiền của bạn là ${a}`;
+            if (confirm(text) == true) {
+                text = "Cảm ơn quý khác";
+            } else {
+                text = "Thanh toán bị hủy";
+            }
+        }
+        
+    }
     
 }
+// export {itemCartLocal}

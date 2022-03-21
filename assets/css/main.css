@@ -475,11 +475,22 @@
     color: var(--primary-color);
     cursor: pointer;
 }
-.header__cart-view-cart{
-    float: right;
-    margin: 0 12px 12px 0;
+.header__cart-footer{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 12px 12px 12px;
+    align-items: center
+    
 }
-.header__cart-view-cart:hover{
+.header__cart-total{
+    font-size: 1.6rem;
+    text-align: center;
+
+}
+.header__cart-view-payment{
+
+}
+.header__cart-view-payment:hover{
     background-color: #f05d41
 }
 /* Authen modal */

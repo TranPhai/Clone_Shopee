@@ -65,7 +65,7 @@ let pass_register;
 let repass_register;
 let gmail_login;
 let pass_login;
-let name_login;
+
 
 // register input
 input_gmail_register.onchange= (e) =>{
@@ -101,22 +101,27 @@ const accountArr = [
 
 let accounts = JSON.parse(localStorage.getItem('accounts'))
 
+
 btnRegister.onclick = () =>{
     if(pass_register === repass_register){
         accountArr.push({gmail_register,name_register,pass_register})
         localStorage.setItem('accounts',JSON.stringify(accountArr));
+        alert('Register Susscessfully')
     }
     else if(pass_register !== repass_register){
         console.log('Mật khẩu không khớp')
     }
     
 }   
+let isLogin = false;
 btnLogin.onclick = () =>{
-
 const user = accounts.map((account) =>{
     if(account.gmail_register == gmail_login && account.pass_register == pass_login ){
         alert('Susscess')
         modal[0].style.display = 'none';
+        isLogin = true;
+        localStorage.setItem('user_name',JSON.stringify(account.name_register));
+        
     }
     
     return `
@@ -142,4 +147,6 @@ const user = accounts.map((account) =>{
     `
   })
   item_user.innerHTML = user.join('')
+  console.log(isLogin)
 }
+export {isLogin}
