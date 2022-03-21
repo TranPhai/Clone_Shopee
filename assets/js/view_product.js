@@ -4,6 +4,8 @@ const header_cart = document.getElementById('header__cart-list-item-id');
 const header_cart_view = document.getElementsByClassName('header__cart');
 const total_price = document.getElementsByClassName('header__cart-total');
 const cart_payment= document.getElementsByClassName('header__cart-payment');
+const cart_number= document.getElementsByClassName('header__cart-notice');
+
 
 
 
@@ -219,7 +221,7 @@ window.onload = function() {
                 productInCart.push(items[i])
                 localStorage.setItem(localStorage.getItem('user_name'),JSON.stringify(productInCart));
             }
-
+            numberItem();
         }
         viewCart()  
     }
@@ -229,6 +231,7 @@ window.onload = function() {
             viewCart() 
             remove();
             total_price[0].textContent = "Tổng tiền: " + sumTotal();
+            numberItem()
         }
        
     }
@@ -249,7 +252,12 @@ window.onload = function() {
                 text = "Thanh toán bị hủy";
             }
         }
+  
         
+    }
+    function numberItem(){
+        const totalItem = productInCart.length;
+        cart_number[0].textContent = `${totalItem}`
     }
     
 }

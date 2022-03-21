@@ -21,6 +21,10 @@ const input_pass_login = document.getElementById('auth-form__input-pass--login')
 
 const item_user = document.getElementById('header__navbar-item-user');
 
+const navbar_user = document.getElementsByClassName('header__navbar-user');
+
+
+
 //
 
 
@@ -130,23 +134,28 @@ const user = accounts.map((account) =>{
             class="header__navbar-user-img">
         <span class="header__navbar-user-name">${account.name_register}</span>
         <ul class="header__navbar-user-menu">
-            <li class="header__navbar-user-item">
-                <a href="">Tài khoản của tôi</a>
-            </li>
-            <li class="header__navbar-user-item">
-                <a href="">Địa chỉ của tôi</a>
-            </li>
-            <li class="header__navbar-user-item">
-                <a href="">Đơn mua</a>
-            </li>
             <li class="header__navbar-user-item header__navbar-user-item-separate">
-                <a href="">Đăng xuất</a>
+                <a class ="header__navbar-user-logOut" href="">Đăng xuất</a>
             </li>
         </ul>
     </li>
     `
   })
+//   <li class="header__navbar-user-item">
+//                 <a href="">Tài khoản của tôi</a>
+//             </li>
+//             <li class="header__navbar-user-item">
+//                 <a href="">Địa chỉ của tôi</a>
+//             </li>
+//             <li class="header__navbar-user-item">
+//                 <a href="">Đơn mua</a>
+//     </li>
   item_user.innerHTML = user.join('')
-  console.log(isLogin)
+  navbar_user.onmousemove = () =>{
+    const user_logOut = document.getElementsByClassName('header__navbar-user-logOut');
+    user_logOut.onclick = ()=>{
+        location.reload();
+    }
+  }
 }
 export {isLogin}
