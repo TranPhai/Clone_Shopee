@@ -110,7 +110,9 @@ btnRegister.onclick = () =>{
     if(pass_register === repass_register){
         accountArr.push({gmail_register,name_register,pass_register})
         localStorage.setItem('accounts',JSON.stringify(accountArr));
-        alert('Register Susscessfully')
+        alert('Register Susscessfully');
+        modal[0].style.display = 'none';
+
     }
     else if(pass_register !== repass_register){
         console.log('Mật khẩu không khớp')
